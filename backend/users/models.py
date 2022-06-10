@@ -24,12 +24,12 @@ class User(AbstractUser):
         verbose_name=_('last name'),
     )
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ('username', 'first_name', 'last_name',)
 
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
-        ordering = ['username']
+        ordering = ('username',)
 
     def __str__(self):
         return self.get_full_name()
@@ -54,13 +54,13 @@ class UserSubscription(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['subscriber', 'subscription'],
+                fields=('subscriber', 'subscription',),
                 name='unique_subscription',
             )
         ]
         verbose_name = _('Subscription')
         verbose_name_plural = _('Subscriptions')
-        ordering = ['-subscribed_at', 'id']
+        ordering = ('-subscribed_at', 'id',)
 
     def __str__(self):
         return f'{self.subscriber} - {self.subscription}'

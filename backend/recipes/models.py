@@ -28,7 +28,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')
-        ordering = ['id']
+        ordering = ('id',)
 
     def __str__(self):
         return self.name
@@ -110,13 +110,13 @@ class Recipe(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['author', 'name'],
+                fields=('author', 'name',),
                 name='unique_recipe_author',
             )
         ]
         verbose_name = _('Recipe')
         verbose_name_plural = _('Recipes')
-        ordering = ['-created_date']
+        ordering = ('-created_date',)
 
     def __str__(self):
         return self.name
@@ -147,13 +147,13 @@ class IngredientAmount(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['recipe', 'ingredient'],
+                fields=('recipe', 'ingredient',),
                 name='unique_recipe_ingredient',
             )
         ]
         verbose_name = _('Ingredient amount')
         verbose_name_plural = _('Ingredient amounts')
-        ordering = ['id']
+        ordering = ('id',)
 
     def __str__(self):
         return f'{self.recipe.name} - {self.ingredient.name}'
@@ -192,13 +192,13 @@ class FavouriteRecipe(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'recipe'],
+                fields=('user', 'recipe',),
                 name='unique_favorite_recipe',
             )
         ]
         verbose_name = _('Favorites')
         verbose_name_plural = _('Favorites')
-        ordering = ['-added_to_favorites', '-added_to_shopping_cart']
+        ordering = ('-added_to_favorites', '-added_to_shopping_cart',)
 
     def __str__(self):
         return f'{self.user.username} - {self.recipe.name}'

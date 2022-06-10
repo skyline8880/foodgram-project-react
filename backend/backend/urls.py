@@ -5,11 +5,16 @@ from django.urls import include, path
 
 from djoser import views as djoser_views
 
-from .routers import router
+from ingredients.routers import router_ingredients
+from recipes.routers import router_recipes
+from users.routers import router_users
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', include(router_ingredients.urls)),
+    path('api/', include(router_recipes.urls)),
+    path('api/', include(router_users.urls)),
     path('api/', include('djoser.urls')),
     path(
         'api/auth/token/login/',

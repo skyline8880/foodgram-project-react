@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -15,7 +14,7 @@ from .permissions import IsRecipeOwnerOrReadOnly
 from .serializers import (IngredientAmountSerializer, RecipeReadSerializer,
                           RecipeWriteSerializer, TagSerializer)
 
-User = get_user_model()
+from users.models import User
 
 
 class TagViewSet(
@@ -100,19 +99,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 {'status': 'Рецепт успешно добавлен в список покупок'},
                 status=status.HTTP_201_CREATED
             )
-
-        else:
-            fav_recipe = get_object_or_404(
-                FavouriteRecipe,
-                recipe=recipe,
-                user=user
-            )
-            if not fav_recipe.is_favorited:
-                fav_recipe.delete()
-            else:
-                fav_recipe.is_in_shopping_cart = False
-                fav_recipe.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=False, methods=['get'],
             permission_classes=[permissions.IsAuthenticated])

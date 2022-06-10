@@ -2,14 +2,15 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class MeasurementUnit(models.Model):
-    class Metrics(models.TextChoices):
-        mass = _('mass'), _('mass')
-        volume = _('volume'), _('volume')
-        quantity = _('quantity'), _('quantity')
-        percent = _('percent'), _('percent')
-        miscellaneous = _('miscellaneous'), _('miscellaneous')
+class Metrics(models.TextChoices):
+    mass = _('mass'), _('mass')
+    volume = _('volume'), _('volume')
+    quantity = _('quantity'), _('quantity')
+    percent = _('percent'), _('percent')
+    miscellaneous = _('miscellaneous'), _('miscellaneous')
 
+
+class MeasurementUnit(models.Model):
     name = models.CharField(
         max_length=255,
         verbose_name=_('name'),
@@ -23,12 +24,12 @@ class MeasurementUnit(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['name', 'metric'], name='unique_measurement_metric'
+                fields=('name', 'metric',), name='unique_measurement_metric'
             )
         ]
         verbose_name = _('Measurement unit')
         verbose_name_plural = _('Measurement units')
-        ordering = ['metric', 'name']
+        ordering = ('metric', 'name',)
 
     def __str__(self):
         return self.name
@@ -51,13 +52,13 @@ class Ingredient(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['name', 'measurement_unit'],
+                fields=('name', 'measurement_unit',),
                 name='unique_ingredient_unit',
             )
         ]
         verbose_name = _('Ingredient')
         verbose_name_plural = _('Ingredients')
-        ordering = ['name', 'measurement_unit', ]
+        ordering = ('name', 'measurement_unit',)
 
     def __str__(self):
         return self.name

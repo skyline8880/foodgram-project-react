@@ -18,28 +18,27 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = [
+        fields = (
             'email',
             'id',
             'username',
             'first_name',
             'last_name',
             'is_subscribed',
-        ]
+        )
 
     def get_is_subscribed(self, obj):
         user = self.context['request'].user
-        if user.is_anonymous:
-            return False
-        return UserSubscription.objects.filter(
+        if user.is_anonymous and not UserSubscription.objects.filter(
             subscriber=user, subscription=obj
-        ).exists()
+        ).exists():
+            return False
 
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ['id', 'name', 'color', 'slug']
+        fields = ('id', 'name', 'color', 'slug',)
 
 
 class IngredientAmountSerializer(serializers.ModelSerializer):
@@ -51,12 +50,12 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientAmount
-        fields = [
+        fields = (
             'id',
             'name',
             'measurement_unit',
-            'amount'
-        ]
+            'amount',
+        )
 
 
 class RecipeReadSerializer(serializers.ModelSerializer):
@@ -72,7 +71,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = [
+        fields = (
             'id',
             'tags',
             'author',
@@ -83,7 +82,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
             'image',
             'text',
             'cooking_time',
-        ]
+        )
 
 
 class IngredientWriteSerializer(serializers.ModelSerializer):
@@ -92,10 +91,10 @@ class IngredientWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = [
+        fields = (
             'id',
-            'amount'
-        ]
+            'amount',
+        )
 
 
 class RecipeWriteSerializer(serializers.ModelSerializer):
@@ -111,6 +110,19 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     image = Base64ImageField(max_length=False, use_url=True)
     is_favorited = serializers.BooleanField(read_only=True)
 
+    class Meta:
+        model = Recipe
+        fields = (
+            'tags',
+            'ingredients',
+            'author',
+            'image',
+            'name',
+            'text',
+            'cooking_time',
+            'is_favorited',
+        )
+
     def create(self, validated_data):
         return add_recipe_with_ingredients_tags(validated_data)
 
@@ -120,28 +132,15 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         return RecipeReadSerializer(instance, context=self.context).data
 
-    class Meta:
-        model = Recipe
-        fields = [
-            'tags',
-            'ingredients',
-            'author',
-            'image',
-            'name',
-            'text',
-            'cooking_time',
-            'is_favorited'
-        ]
-
 
 class RecipeFavoriteSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
 
     class Meta:
         model = Recipe
-        fields = [
+        fields = (
             'id',
             'name',
             'image',
             'cooking_time',
-        ]
+        )

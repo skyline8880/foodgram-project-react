@@ -16,15 +16,15 @@ class UserSerializer(UserCreateSerializer):
 
     class Meta:
         model = User
-        fields = [
+        fields = (
             'email',
             'id',
             'username',
             'first_name',
             'last_name',
             'is_subscribed',
-            'password'
-        ]
+            'password',
+        )
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -50,7 +50,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserSubscription
-        fields = [
+        fields = (
             'email',
             'id',
             'username',
@@ -58,8 +58,8 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             'last_name',
             'is_subscribed',
             'recipes',
-            'recipes_count'
-        ]
+            'recipes_count',
+        )
 
     def get_is_subscribed(self, obj):
         user = self.context['request'].user
@@ -80,10 +80,10 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class SubscriptionWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserSubscription
-        fields = [
+        fields = (
             'subscriber',
             'subscription',
-        ]
+        )
 
     def validate_subscription(self, value):
         request = self.context['request']
