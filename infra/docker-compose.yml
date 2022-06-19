@@ -1,10 +1,18 @@
 version: '3.3'
 services:
 
+  backend:
+    image: skyline8880/foodgram_backend
+#    build:
+#      context: ../backend
+#      dockerfile: Dockerfile
+    volumes:
+
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: skyline8880/foodgram_frontend
+#    build:
+#      context: ../frontend
+#      dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
   nginx:
