@@ -1,16 +1,16 @@
-from django.contrib.auth import get_user_model
+#from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
 from ingredients.models import Ingredient
-from users.models import UserSubscription
+from users.models import UserSubscription, User
 
 from .fields import Base64ImageField
 from .models import IngredientAmount, Recipe, Tag
 from .services import (add_recipe_with_ingredients_tags,
                        update_recipe_with_ingredients_tags)
 
-User = get_user_model()
+#User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -29,10 +29,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_is_subscribed(self, obj):
         user = self.context['request'].user
-        if user.is_anonymous and not UserSubscription.objects.filter(
-            subscriber=user, subscription=obj
-        ).exists():
+        if user.is_anonymous:
             return False
+        return UserSubscription.objects.filter(
+            subscriber=user, subscription=obj
+        ).exists()
 
 
 class TagSerializer(serializers.ModelSerializer):
