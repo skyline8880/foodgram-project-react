@@ -1,8 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 from djoser.serializers import UserCreateSerializer
-from rest_framework import serializers
 from recipes.serializers import RecipeFavoriteSerializer
-from .models import UserSubscription, User
+from rest_framework import serializers
+
+from .models import User, UserSubscription
 
 
 class UserSerializer(UserCreateSerializer):

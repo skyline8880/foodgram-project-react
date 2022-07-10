@@ -6,7 +6,7 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import UserSubscription, User
+from .models import User, UserSubscription
 from .serializers import (SubscriptionSerializer, SubscriptionWriteSerializer,
                           UserSerializer)
 
