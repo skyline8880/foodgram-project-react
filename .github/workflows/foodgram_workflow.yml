@@ -6,7 +6,6 @@ on:
       - '**/README.md'
 
 jobs:
-  
   tests:
     runs-on: ubuntu-latest
     steps:
