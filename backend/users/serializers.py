@@ -1,14 +1,8 @@
-from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
-
 from recipes.serializers import RecipeFavoriteSerializer
-
-from .models import UserSubscription
-
-User = get_user_model()
+from .models import UserSubscription, User
 
 
 class UserSerializer(UserCreateSerializer):

@@ -1,11 +1,11 @@
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-
 from django_filters import rest_framework as filters
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from users.models import User
 
 from .filters import RecipeFilter
 from .models import FavouriteRecipe, IngredientAmount, Recipe, Tag
@@ -13,8 +13,6 @@ from .paginators import CustomPageNumberPaginator
 from .permissions import IsRecipeOwnerOrReadOnly
 from .serializers import (IngredientAmountSerializer, RecipeReadSerializer,
                           RecipeWriteSerializer, TagSerializer)
-
-from users.models import User
 
 
 class TagViewSet(
@@ -99,6 +97,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 {'status': 'Рецепт успешно добавлен в список покупок'},
                 status=status.HTTP_201_CREATED
             )
+        return False
 
     @action(detail=False, methods=['get'],
             permission_classes=[permissions.IsAuthenticated])

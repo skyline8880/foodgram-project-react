@@ -1,8 +1,7 @@
 from csv import reader
 
 from django.core.management.base import BaseCommand
-
-from ingredients.models import Metrics, MeasurementUnit, Ingredient
+from ingredients.models import Ingredient, MeasurementUnit, Metrics
 
 
 class Command(BaseCommand):
@@ -34,5 +33,8 @@ class Command(BaseCommand):
                             name=row[1], metric=Metrics.miscellaneous
                         )
                     Ingredient.objects.get_or_create(
-                        name=row[0], measurement_unit=MeasurementUnit.objects.get(name=row[1]),
+                        name=row[0],
+                        measurement_unit=MeasurementUnit.objects.get(
+                            name=row[1]
+                        ),
                     )

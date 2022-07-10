@@ -3,7 +3,6 @@ import uuid
 
 from django.core.files.base import ContentFile
 from django.template.defaultfilters import slugify as django_slugify
-
 from rest_framework import serializers
 from unidecode import unidecode
 

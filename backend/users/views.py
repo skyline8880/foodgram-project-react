@@ -1,18 +1,14 @@
-from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
-
 from django_filters import rest_framework as filters
 from djoser.views import UserViewSet
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import UserSubscription
+from .models import UserSubscription, User
 from .serializers import (SubscriptionSerializer, SubscriptionWriteSerializer,
                           UserSerializer)
-
-User = get_user_model()
 
 
 class SubscriptionViewSet(viewsets.ModelViewSet):

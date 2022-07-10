@@ -2,13 +2,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
 from djoser import views as djoser_views
-
 from ingredients.routers import router_ingredients
 from recipes.routers import router_recipes
 from users.routers import router_users
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
