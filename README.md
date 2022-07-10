@@ -19,11 +19,6 @@ git clone https://github.com/skyline8880/foodgram-project-react
 ```
 sudo apt install docker.io 
 ```
-* Установите docker-compose на сервер:
-```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
 * Локально отредактируйте файл infra/nginx.conf и в строке server_name впишите свой IP
 * Скопируйте файлы docker-compose.yml и nginx.conf из директории infra на сервер:
 ```
@@ -83,7 +78,10 @@ sudo docker-compose up -d --build
     - Загрузите ингридиенты  в базу данных (необязательно):  
     *Если файл не указывать, по умолчанию выберется ingredients.json*
     ```
-    sudo docker-compose exec backend python manage.py load_ingredients <Название файла из директории data>
+    sudo docker-compose exec backend python manage.py load_metrics
+    ```
+    ```
+    sudo docker-compose exec backend python manage.py load_tags
     ```
     - Создать суперпользователя Django:
     ```
@@ -92,4 +90,4 @@ sudo docker-compose up -d --build
     - Проект будет доступен по вашему IP
 
 ## Проект в интернете
-Проект запущен и доступен по [адресу](http://84.252.142.48/)
+Проект запущен и доступен по [адресу](http://sky-foodgram.ddnsking.com)
