@@ -21,11 +21,6 @@ sudo apt install docker.io
 ```
 * Локально отредактируйте файл infra/nginx.conf и в строке server_name впишите свой IP
 * Скопируйте файлы docker-compose.yml и nginx.conf из директории infra на сервер:
-```
-scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
-scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
-```
-
 * Cоздайте .env файл и впишите:
     ```
     DB_ENGINE=<django.db.backends.postgresql>
@@ -75,8 +70,7 @@ sudo docker-compose up -d --build
     ```
     sudo docker-compose exec backend python manage.py migrate --noinput
     ```
-    - Загрузите ингридиенты  в базу данных (необязательно):  
-    *Если файл не указывать, по умолчанию выберется ingredients.json*
+    - Загрузите ингридиенты  в базу данных (необязательно):
     ```
     sudo docker-compose exec backend python manage.py load_metrics
     ```
@@ -89,5 +83,15 @@ sudo docker-compose up -d --build
     ```
     - Проект будет доступен по вашему IP
 
+* Данные администратора:
+    - Логин
+    ```
+    skyline89_88@mail.ru
+    ```
+    - Пароль
+    ```
+    skyline
+    ```
+  
 ## Проект в интернете
-Проект запущен и доступен по [адресу](http://sky-foodgram.ddnsking.com)
+Проект запущен и доступен по [http://sky-foodgram.ddnsking.com](http://sky-foodgram.ddnsking.com)
