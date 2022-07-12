@@ -1,6 +1,6 @@
 from ingredients.models import Ingredient
 from rest_framework import serializers
-from users.models import UserSubscription, User
+from users.models import User, UserSubscription
 
 from .fields import Base64ImageField
 from .models import IngredientAmount, Recipe, Tag
