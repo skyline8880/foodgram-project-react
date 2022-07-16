@@ -3,7 +3,7 @@ from djoser.serializers import UserCreateSerializer
 from recipes.serializers import RecipeFavoriteSerializer
 from rest_framework import serializers
 
-from .models import User, UserSubscription
+from .models import UserSubscription, User
 
 
 class UserSerializer(UserCreateSerializer):

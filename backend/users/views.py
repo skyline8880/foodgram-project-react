@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
@@ -10,9 +11,11 @@ from rest_framework_simplejwt.token_blacklist.models import (BlacklistedToken,
                                                              OutstandingToken)
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User, UserSubscription
+from .models import UserSubscription
 from .serializers import (SubscriptionSerializer, SubscriptionWriteSerializer,
                           UserSerializer)
+
+User = get_user_model()
 
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
@@ -32,7 +35,7 @@ class CustomUserViewSet(UserViewSet):
 
     @action(detail=True, methods=['get', 'delete'],
             serializer_class=SubscriptionWriteSerializer,
-            permission_classes=[permissions.IsAuthenticated]
+            permission_classes=[permissions.IsAuthenticated, ]
             )
     def subscribe(self, request, id=None):
         user = self.request.user

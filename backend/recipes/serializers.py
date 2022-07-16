@@ -1,11 +1,14 @@
+from django.contrib.auth import get_user_model
 from ingredients.models import Ingredient
 from rest_framework import serializers
-from users.models import User, UserSubscription
+from users.models import UserSubscription
 
 from .fields import Base64ImageField
 from .models import IngredientAmount, Recipe, Tag
 from .services import (add_recipe_with_ingredients_tags,
                        update_recipe_with_ingredients_tags)
+
+User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
