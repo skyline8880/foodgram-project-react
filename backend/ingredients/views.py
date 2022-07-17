@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from rest_framework import mixins, viewsets
+from rest_framework import mixins, permissions, viewsets
 
 from .filters import IngredientFilter
 from .models import Ingredient
@@ -16,3 +16,4 @@ class IngredientViewSet(
     pagination_class = None
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = IngredientFilter
+    permission_classes = [permissions.IsAuthenticated, ]

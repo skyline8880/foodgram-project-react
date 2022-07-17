@@ -17,7 +17,7 @@ def user_2(django_user_model):
     return django_user_model.objects.create_user(
         email='vaskin@index.com',
         first_name='Vasiliy',
-        last_name='Tyotkin',
+        last_name='Tyorkin',
         username='vaskin',
         password='vakivaki89',
     )
