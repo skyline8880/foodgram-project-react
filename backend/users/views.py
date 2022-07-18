@@ -29,14 +29,14 @@ class CustomUserViewSet(UserViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    @action(detail=True, methods=['get', 'delete'],
+    @action(detail=True, methods=['post', 'get', 'delete'],
             serializer_class=SubscriptionWriteSerializer,
             permission_classes=[permissions.IsAuthenticated, ]
             )
     def subscribe(self, request, id=None):
         user = self.request.user
         subscription = self.get_object()
-        if request.method == 'GET':
+        if request.method == 'GET' or request.method == 'POST':
             if UserSubscription.objects.filter(
                     subscriber=user,
                     subscription=subscription).exists():
