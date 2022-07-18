@@ -3,9 +3,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from ingredients.routers import router_ingredients
+from recipes.routers import router_recipes
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView, TokenVerifyView)
-from recipes.routers import router_recipes
 from users.routers import router_users
 from users.views import APILogoutView
 
