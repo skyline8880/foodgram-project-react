@@ -5,10 +5,10 @@ User = get_user_model()
 
 
 class TestJWT:
-    url_create = '/api/auth/jwt/create/'
-    url_refresh = '/api/auth/jwt/refresh/'
-    url_verify = '/api/auth/jwt/verify/'
-    url_logout = '/api/auth/jwt/logout/'
+    url_create = '/api/auth/token/login/'
+    url_refresh = '/api/auth/token/refresh/'
+    url_verify = '/api/auth/token/verify/'
+    url_logout = '/api/auth/token/logout/'
 
     @pytest.mark.django_db(transaction=True)
     def test_jwt_create__invalid_request_data(self, client, user):
