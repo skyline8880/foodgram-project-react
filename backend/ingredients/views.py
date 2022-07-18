@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from rest_framework import mixins, permissions, viewsets
+from rest_framework import mixins, viewsets
 
 from .filters import IngredientFilter
 from .models import Ingredient
