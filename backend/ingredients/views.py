@@ -16,4 +16,3 @@ class IngredientViewSet(
     pagination_class = None
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = IngredientFilter
-    permission_classes = [permissions.IsAuthenticated, ]
