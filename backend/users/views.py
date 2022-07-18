@@ -6,10 +6,6 @@ from djoser.views import UserViewSet
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.token_blacklist.models import (BlacklistedToken,
-                                                             OutstandingToken)
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import UserSubscription
 from .serializers import (SubscriptionSerializer, SubscriptionWriteSerializer,
@@ -68,18 +64,3 @@ class CustomUserViewSet(UserViewSet):
         )
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class APILogoutView(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
-
-    def post(self, request, *args, **kwargs):
-        if self.request.data.get('all'):
-            token: OutstandingToken
-            for token in OutstandingToken.objects.filter(user=request.user):
-                _, _ = BlacklistedToken.objects.get_or_create(token=token)
-            return Response(status=status.HTTP_200_OK)
-        refresh_token = self.request.data.get('refresh_token')
-        token = RefreshToken(token=refresh_token)
-        token.blacklist()
-        return Response(status=status.HTTP_200_OK)
