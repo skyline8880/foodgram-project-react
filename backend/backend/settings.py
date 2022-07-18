@@ -132,8 +132,6 @@ DJOSER = {
         'activation': ['rest_framework.permissions.AllowAny'],
         'password_reset': ['rest_framework.permissions.AllowAny'],
         'password_reset_confirm': ['rest_framework.permissions.AllowAny'],
-#        'set_password': ['rest_framework.permissions.IsAuthenticated',
-#                         'rest_framework.permissions.IsAdminUser'],
         'username_reset': ['rest_framework.permissions.AllowAny'],
         'username_reset_confirm': ['rest_framework.permissions.AllowAny'],
         'set_username': ['djoser.permissions.CurrentUserOrAdmin'],
