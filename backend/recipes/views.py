@@ -48,12 +48,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         serializer.save(author=self.request.user)
 
-    @action(detail=True, methods=['get', 'delete'],
+    @action(detail=True, methods=['post', 'get', 'delete'],
             permission_classes=[permissions.IsAuthenticated])
     def favorite(self, request, pk=None):
         user = self.request.user
         recipe = self.get_object()
-        if request.method == 'GET':
+        if request.method == 'GET' or request.method == 'POST':
             FavouriteRecipe.objects.update_or_create(
                 user=user, recipe=recipe,
                 defaults={
@@ -78,13 +78,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
             fav_recipe.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=True, methods=['get', 'delete'],
+    @action(detail=True, methods=['post', 'get', 'delete'],
             permission_classes=[permissions.IsAuthenticated])
     def shopping_cart(self, request, pk=None):
         user = self.request.user
         recipe = self.get_object()
 
-        if request.method == 'GET':
+        if request.method == 'GET' or request.method == 'POST':
             FavouriteRecipe.objects.update_or_create(
                 user=user,
                 recipe=recipe,
